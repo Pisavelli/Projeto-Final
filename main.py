@@ -13,7 +13,7 @@ boss = False
 
 HP = 100
 HPMAX = 100
-ATK = 3
+ATK = 5
 potion = 1
 elixir = 0
 ouro = 0
