@@ -14,18 +14,20 @@ boss = False
 HP = 50
 HPMAX = 50
 ATK = 3
-pot = 1
-elix = 0
-gold = 0
+potion = 1
+elixir = 0
+ouro = 0
 x = 0
 y = 0
 
-    #    x = 0        x = 1        x = 2        x = 3        x = 4       x = 5       x = 6
-map = [["planicies", "planicies", "planicies", "planicies", "floresta", "montanha", "caverna"],     # y = 0
-       ["floresta",  "floresta",  "floresta",  "floresta",  "floresta", "colinas",  "montanha"],    # y = 1
-       ["floresta",  "campos",    "ponto",     "planicies", "colinas",  "floresta", "colinas"],     # y = 2
-       ["planicies", "loja",      "cidade",    "prefeito",  "planicies","colinas",  "montanha"],    # y = 3
-       ["planicies", "campos",    "campos",    "planicies", "colinas",  "montanha", "montanha"]]    # y = 4
+map = [
+    #   x = 0        x = 1        x = 2        x = 3        x = 4       x = 5       x = 6
+    ["planicies", "planicies", "planicies", "planicies", "floresta", "montanha", "caverna"],    # y = 0
+    ["floresta",  "floresta",  "floresta",  "floresta",  "floresta", "colinas",  "montanha"],   # y = 1
+    ["floresta",  "campos",    "ponto",     "planicies", "colinas",  "floresta", "colinas"],    # y = 2
+    ["planicies", "loja",      "cidade",    "prefeito",  "planicies","colinas",  "montanha"],   # y = 3
+    ["planicies", "campos",    "campos",    "planicies", "colinas",  "montanha", "montanha"]    # y = 4
+    ]
 
 y_len = len(map)-1
 x_len = len(map[0])-1
@@ -33,34 +35,43 @@ x_len = len(map[0])-1
 biom = {
     "planicies": {
         "t": "PLANICIES",
-        "e": True},
+        "e": True
+        },
     "floresta": {
         "t": "BOSQUE",
-        "e": True},
+        "e": True
+        },
     "campos": {
         "t": "CAMPOS",
-        "e": False},
+        "e": False
+        },
     "ponto": {
         "t": "PONTE",
-        "e": True},
+        "e": True
+        },
     "cidade": {
         "t": "CENTRO DA CIDADE",
-        "e": False},
+        "e": False
+        },
     "loja": {
         "t": "LOJA",
-        "e": False},
+        "e": False
+        },
     "prefeito": {
         "t": "PREFEITO",
-        "e": False},
+        "e": False
+        },
     "caverna": {
         "t": "CAVERNA",
-        "e": False},
+        "e": False
+        },
     "montanha": {
         "t": "MONTANHA",
-        "e": True},
+        "e": True
+        },
     "colinas": {
         "t": "COLINAS",
-        "e": True,
+        "e": True
     }
 }
 
@@ -142,48 +153,48 @@ def battle():
     while fight:
         clear()
         draw()
-        print("Defeat the " + enemy + "!")
+        print(f"Defeat the {enemy}!")
         draw()
-        print(enemy + "'s HP: " + str(hp) + "/" + str(hpmax))
-        print(name + "'s HP: " + str(HP) + "/" + str(HPMAX))
-        print("POTIONS: " + str(pot))
-        print("ELIXIR: " + str(elix))
+        print(f"{enemy}'s HP: {hp}/{hpmax}")
+        print(f"{name}'s HP: {HP}/{HPMAX}")
+        print(f"POÇÕES: {potion}")
+        print(f"ELIXIRES: {elixir}")
         draw()
-        print("1 - ATTACK")
-        if pot > 0:
-            print("2 - USE POTION (30HP)")
-        if elix > 0:
-            print("3 - USE ELIXIR (50HP)")
+        print("1 - ATACAR")
+        if potion > 0:
+            print("2 - USAR POÇÃO (30HP)")
+        if elixir > 0:
+            print("3 - USAR ELIXIR (50HP)")
         draw()
 
         choice = input("> ")
 
         if choice == "1":
             hp -= ATK
-            print(name + " dealt " + str(ATK) + " damage to the " + enemy + ".")
+            print(f"{name} dealt {ATK} damage to the {enemy}.")
             if hp > 0:
                 HP -= atk
-                print(enemy + " dealt " + str(atk) + " damage to " + name + ".")
+                print(f"{enemy} dealt {atk} damage to {name}.")
             input("> ")
 
         elif choice == "2":
-            if pot > 0:
-                pot -= 1
+            if potion > 0:
+                potion -= 1
                 heal(30)
                 HP -= atk
-                print(enemy + " dealt " + str(atk) + " damage to " + name + ".")
+                print(f"{enemy} dealt {atk} damage to {name}.")
             else:
-                print("No potions!")
+                print("Sem Poções!")
             input("> ")
 
         elif choice == "3":
-            if elix > 0:
-                elix -= 1
+            if elixir > 0:
+                elixir -= 1
                 heal(50)
                 HP -= atk
-                print(enemy + " dealt " + str(atk) + " damage to " + name + ".")
+                print(f"{enemy} dealt {atk} damage to {name}.")
             else:
-                print("No elixirs!")
+                print("Sem Elixires!")
             input("> ")
 
         if HP <= 0:
@@ -199,10 +210,10 @@ def battle():
             print(f"{name} derrotou o {enemy}!")
             draw()
             fight = False
-            gold += g
-            print("Você encontrou " + str(g) + " ouro!")
+            Ouro += g
+            print(f"Você encontrou {g} ouro!")
             if random.randint(0, 100) < 30:
-                pot += 1
+                Potion += 1
                 print("Você encontrou uma poção!")
             if enemy == "Dragon":
                 draw()
@@ -214,7 +225,7 @@ def battle():
             clear()
 
 
-def shop():
+def loja():
     global buy, gold, pot, elix, ATK
 
     while buy:
@@ -222,10 +233,10 @@ def shop():
         draw()
         print("Bem-vindo à loja!")
         draw()
-        print("OURO: " + str(gold))
-        print("POÇÕES: " + str(pot))
-        print("ELIXIRES: " + str(elix))
-        print("ATK: " + str(ATK))
+        print(f"OURO: {ouro}")
+        print(f"POÇÕES: {potion}")
+        print(f"ELIXIRES: {elixir}")
+        print(f"ATK: {ATK}")
         draw()
         print("1 - COMPRAR POÇÃO (30HP) - 5 OURO")
         print("2 - COMPRAR ELIXIR (MAXHP) - 8 OURO")
@@ -243,42 +254,45 @@ def shop():
             else:
                 print("Você não tem ouro suficiente!")
             input("> ")
+
         elif choice == "2":
-            if gold >= 8:
-                elix += 1
-                gold -= 8
+            if ouro >= 8:
+                elixir += 1
+                ouro -= 8
                 print("Você comprou um elixir!")
             else:
                 print("Você não tem ouro suficiente!")
             input("> ")
+
         elif choice == "3":
-            if gold >= 10:
+            if ouro >= 10:
                 ATK += 2
-                gold -= 10
+                ouro -= 10
                 print("Você melhorou sua arma!")
             else:
                 print("Você não tem ouro suficiente!")
             input("> ")
+
         elif choice == "4":
             buy = False
 
 
-def mayor():
+def prefeito():
     global speak, key
 
     while speak:
         clear()
         draw()
-        print(f"Hello there, {name}!")
+        print(f"Olá, {name}! Eu sou o prefeito Beicinicus.")
         if ATK < 10:
-            print("You're not strong enough to face the dragon yet! Keep practicing and come back later!")
+            print("Você não é forte o suficiente para enfrentar o dragão ainda! Continue praticando e volte mais tarde!")
             key = False
         else:
-            print("You might want to take on the dragon now! Take this key but be careful with the beast!")
+            print("Você pode querer enfrentar o dragão agora! Pegue esta chave, mas tenha cuidado com a besta!")
             key = True
 
         draw()
-        print("1 - LEAVE")
+        print("1 - SAIR")
         draw()
 
         choice = input("> ")
@@ -287,17 +301,17 @@ def mayor():
             speak = False
 
 
-def cave():
+def caverna():
     global boss, key, fight
 
     while boss:
         clear()
         draw()
-        print("Here lies the cave of the dragon. What will you do?")
+        print("Aqui está a caverna do dragão. O que você vai fazer?")
         draw()
         if key:
-            print("1 - USE KEY")
-        print("2 - TURN BACK")
+            print("1 - USAR CHAVE")
+        print("2 - VOLTAR")
         draw()
 
         choice = input("> ")
@@ -340,9 +354,9 @@ while run:
                     name = load_list[0][:-1]
                     HP = int(load_list[1][:-1])
                     ATK = int(load_list[2][:-1])
-                    pot = int(load_list[3][:-1])
-                    elix = int(load_list[4][:-1])
-                    gold = int(load_list[5][:-1])
+                    potion = int(load_list[3][:-1])
+                    elixir = int(load_list[4][:-1])
+                    ouro = int(load_list[5][:-1])
                     x = int(load_list[6][:-1])
                     y = int(load_list[7][:-1])
                     key = bool(load_list[8][:-1])
@@ -376,13 +390,13 @@ while run:
             draw()
             print("LOCALIZAÇÃO: " + biom[map[y][x]]["t"])
             draw()
-            print("NOME: " + name)
-            print("HP: " + str(HP) + "/" + str(HPMAX))
-            print("ATK: " + str(ATK))
-            print("POTIONS: " + str(pot))
-            print("ELIXIRS: " + str(elix))
-            print("GOLD: " + str(gold))
-            print("COORD:", x, y)
+            print(f"NOME: {name}")
+            print(f"HP: {HP}/{HPMAX}")
+            print(f"ATK: {ATK}")
+            print(f"POTIONS: {potion}")
+            print(f"ELIXIRS: {elixir}")
+            print(f"GOLD: {ouro}")
+            print(f"COORD: {x}, {y}")
             draw()
             print("0 - SALVAR E SAIR")
             if y > 0:
@@ -397,7 +411,7 @@ while run:
                 print("5 - USAR POÇÃO (30HP)")
             if elix > 0:
                 print("6 - USAR ELIXIR (50HP)")
-            if map[y][x] == "shop" or map[y][x] == "mayor" or map[y][x] == "cave":
+            if map[y][x] == "loja" or map[y][x] == "prefeito" or map[y][x] == "caverna":
                 print("7 - ENTRAR")
             draw()
 
@@ -440,15 +454,15 @@ while run:
                 input("> ")
                 standing = True
             elif dest == "7":
-                if map[y][x] == "shop":
+                if map[y][x] == "loja":
                     buy = True
-                    shop()
-                if map[y][x] == "mayor":
+                    loja()
+                if map[y][x] == "prefeito":
                     speak = True
-                    mayor()
-                if map[y][x] == "cave":
+                    prefeito()
+                if map[y][x] == "caverna":
                     boss = True
-                    cave()
+                    caverna()
             else:
                 standing = True
                 print("Comando inválido!")
