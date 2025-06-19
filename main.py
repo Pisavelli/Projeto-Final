@@ -38,7 +38,7 @@ biom = {
         "e": True
         },
     "floresta": {
-        "t": "BOSQUE",
+        "t": "FLORESTA",
         "e": True
         },
     "campos": {
@@ -84,28 +84,28 @@ mobs = {
         "go": 8
     },
     "Ork": {
-        "hp": 35,
+        "hp": 30,
         "at": 5,
         "go": 18
     },
     "Slime": {
-        "hp": 30,
-        "at": 2,
+        "hp": 10,
+        "at": 1,
         "go": 12
     },
     "Gigante": {
-        "hp": 60,
-        "at": 4,
+        "hp": 50,
+        "at": 2,
         "go": 25
     },
     "Bandido": {
-        "hp": 50,
-        "at": 6,
+        "hp": 40,
+        "at": 3,
         "go": 20
     },
     "Lobo": {
         "hp": 20,
-        "at": 4,
+        "at": 3,
         "go": 10
     },
     "Dragão": {
@@ -159,7 +159,7 @@ def battle():
     if not boss:
         enemy = random.choice(e_list)
     else:
-        enemy = "Dragon"
+        enemy = "Dragão"
     hp = mobs[enemy]["hp"]
     hpmax = hp
     atk = mobs[enemy]["at"]
@@ -186,10 +186,10 @@ def battle():
 
         if choice == "1":
             hp -= ATK
-            print(f"{name} dealt {ATK} damage to the {enemy}.")
+            print(f"{name} causou {ATK} de dano ao {enemy}.")
             if hp > 0:
                 HP -= atk
-                print(f"{enemy} dealt {atk} damage to {name}.")
+                print(f"{enemy} causou {atk} de dano a {name}.")
             input("> ")
 
         elif choice == "2":
@@ -197,7 +197,7 @@ def battle():
                 potion -= 1
                 heal(30)
                 HP -= atk
-                print(f"{enemy} dealt {atk} damage to {name}.")
+                print(f"{enemy} causou {atk} de dano a {name}.")
             else:
                 print("Sem Poções!")
             input("> ")
@@ -207,7 +207,7 @@ def battle():
                 elixir -= 1
                 heal(50)
                 HP -= atk
-                print(f"{enemy} dealt {atk} damage to {name}.")
+                print(f"{enemy} causou {atk} de dano a {name}.")
             else:
                 print("Sem Elixires!")
             input("> ")
@@ -228,11 +228,14 @@ def battle():
             ouro += g
             print(f"Você encontrou {g} ouro!")
             if random.randint(0, 100) < 30:
-                Potion += 1
+                potion += 1
                 print("Você encontrou uma poção!")
-            if enemy == "Dragon":
+            if enemy == "Dragão":
                 draw()
                 print("Parabéns, você terminou o jogo!")
+                print("Você derrotou o dragão e salvou a cidade!")
+                print("Obrigado por jogar!")
+                print("Feito por Pierre e Guilherme.")
                 boss = False
                 play = False
                 run = False
@@ -346,9 +349,6 @@ def introducao():
     print("\nUse as teclas do teclado para se mover e realizar ações.")
     print("\nVocê pode salvar o jogo a qualquer momento, e carregar o jogo salvo quando quiser.")
     print("\nBoa sorte, aventureiro!")
-    print("\nPressione Enter para continuar...")
-
-    input("> ")
 
 while run:
     clear()
@@ -370,9 +370,8 @@ while run:
         if choice == "1":
             clear()
             introducao()
-            time.sleep(3)
-            clear()
-            name = input("Qual é o seu nome, jogador?\n> ")
+            time.sleep(6)
+            name = input("\nQual é o seu nome, jogador?\n> ").upper()
             menu = False
             play = True
         elif choice == "2":
