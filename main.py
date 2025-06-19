@@ -1,4 +1,4 @@
-import os, random
+import os, random, time
 
 run = True
 menu = True
@@ -75,7 +75,7 @@ biom = {
     }
 }
 
-e_list = ["Goblin", "Orc", "Slime"]
+e_list = ["Goblin", "Ork", "Slime", "Gigante", "Bandido", "Lobo"]
 
 mobs = {
     "Goblin": {
@@ -92,6 +92,21 @@ mobs = {
         "hp": 30,
         "at": 2,
         "go": 12
+    },
+    "Gigante": {
+        "hp": 60,
+        "at": 7,
+        "go": 25
+    },
+    "Bandido": {
+        "hp": 50,
+        "at": 6,
+        "go": 20
+    },
+    "Lobo": {
+        "hp": 20,
+        "at": 4,
+        "go": 10
     },
     "Dragão": {
         "hp": 100,
@@ -114,9 +129,9 @@ def save():
         name,
         str(HP),
         str(ATK),
-        str(pot),
-        str(elix),
-        str(gold),
+        str(potion),
+        str(elixir),
+        str(ouro),
         str(x),
         str(y),
         str(key)
@@ -139,7 +154,7 @@ def heal(amount):
 
 
 def battle():
-    global fight, play, run, HP, pot, elix, gold, boss
+    global fight, play, run, HP, potion, elixir, ouro, boss
 
     if not boss:
         enemy = random.choice(e_list)
@@ -226,7 +241,7 @@ def battle():
 
 
 def loja():
-    global buy, gold, pot, elix, ATK
+    global buy, ouro, potion, elixir, ATK
 
     while buy:
         clear()
@@ -247,9 +262,9 @@ def loja():
         choice = input("> ")
 
         if choice == "1":
-            if gold >= 5:
-                pot += 1
-                gold -= 5
+            if ouro >= 5:
+                potion += 1
+                ouro -= 5
                 print("Você comprou uma poção!")
             else:
                 print("Você não tem ouro suficiente!")
@@ -323,7 +338,12 @@ def caverna():
         elif choice == "2":
             boss = False
 
+def introducao():
+    print("Bem-vindo ao jogo de aventura! Este jogo foi realizado por Pierre e Guilherme, alunos do curso de Engenharia de Software.")
+    print("Seu objetivo é explorar um mundo cheio de perigos, coletar recursos e enfrentar inimigos para se tornar mais forte. Boa sorte!")
+    print("Pressione Enter para continuar...")
 
+    input("> ")
 
 while run:
     clear()
@@ -342,6 +362,9 @@ while run:
             choice = input("> ")
 
         if choice == "1":
+            clear()
+            introducao()
+            time.sleep(3)
             clear()
             name = input("Qual é o seu nome, jogador?\n> ")
             menu = False
@@ -393,9 +416,9 @@ while run:
             print(f"NOME: {name}")
             print(f"HP: {HP}/{HPMAX}")
             print(f"ATK: {ATK}")
-            print(f"POTIONS: {potion}")
-            print(f"ELIXIRS: {elixir}")
-            print(f"GOLD: {ouro}")
+            print(f"POÇÕES: {potion}")
+            print(f"ELIXIRES: {elixir}")
+            print(f"OURO: {ouro}")
             print(f"COORD: {x}, {y}")
             draw()
             print("0 - SALVAR E SAIR")
@@ -407,9 +430,9 @@ while run:
                 print("3 - SUL")
             if x > 0:
                 print("4 - OESTE")
-            if pot > 0:
+            if potion > 0:
                 print("5 - USAR POÇÃO (30HP)")
-            if elix > 0:
+            if elixir > 0:
                 print("6 - USAR ELIXIR (50HP)")
             if map[y][x] == "loja" or map[y][x] == "prefeito" or map[y][x] == "caverna":
                 print("7 - ENTRAR")
@@ -438,16 +461,16 @@ while run:
                     x -= 1
                     standing = False
             elif dest == "5":
-                if pot > 0:
-                    pot -= 1
+                if potion > 0:
+                    potion -= 1
                     heal(30)
                 else:
                     print("Sem poções!")
                 input("> ")
                 standing = True
             elif dest == "6":
-                if elix > 0:
-                    elix -= 1
+                if elixir > 0:
+                    elixir -= 1
                     heal(50)
                 else:
                     print("Sem elixires!")
