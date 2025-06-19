@@ -3,7 +3,7 @@ import os, random, time
 run = True
 menu = True
 play = False
-rules = False
+about = False
 key = False
 fight = False
 standing = True
@@ -95,7 +95,7 @@ mobs = {
     },
     "Gigante": {
         "hp": 60,
-        "at": 7,
+        "at": 4,
         "go": 25
     },
     "Bandido": {
@@ -225,7 +225,7 @@ def battle():
             print(f"{name} derrotou o {enemy}!")
             draw()
             fight = False
-            Ouro += g
+            ouro += g
             print(f"Você encontrou {g} ouro!")
             if random.randint(0, 100) < 30:
                 Potion += 1
@@ -339,9 +339,14 @@ def caverna():
             boss = False
 
 def introducao():
-    print("Bem-vindo ao jogo de aventura! Este jogo foi realizado por Pierre e Guilherme, alunos do curso de Engenharia de Software.")
-    print("Seu objetivo é explorar um mundo cheio de perigos, coletar recursos e enfrentar inimigos para se tornar mais forte. Boa sorte!")
-    print("Pressione Enter para continuar...")
+    print("Você não lembra do seu passado, mas sabe que precisa sobreviver. Você acorda em um lugar desconhecido, sem saber como chegou lá.")
+    print("\nVocê tem apenas uma espada e um escudo, e precisa explorar o mundo para descobrir mais sobre si mesmo.")
+    print("\nVocê pode encontrar monstros, tesouros e pessoas ao longo do caminho.")
+    print("\nVocê pode lutar contra os monstros, comprar itens na loja, e descobrir segredos.")
+    print("\nUse as teclas do teclado para se mover e realizar ações.")
+    print("\nVocê pode salvar o jogo a qualquer momento, e carregar o jogo salvo quando quiser.")
+    print("\nBoa sorte, aventureiro!")
+    print("\nPressione Enter para continuar...")
 
     input("> ")
 
@@ -350,12 +355,13 @@ while run:
     while menu:
         print("1 - INICIAR JOGO")
         print("2 - CARREGAR JOGO")
-        print("3 - REGRAS")
+        print("3 - SOBRE O JOGO")
         print("4 - SAIR")
 
-        if rules:
-            print("Jogo criado para o projeto de Python do curso Raciocínio Algorítmico.")
-            rules = False
+        if about:
+            clear()
+            print("Jogo criado para o projeto de Python do curso Raciocínio Algorítmico. Feito por Pierre e Guilherme, futuros Engenheiros de Software.")
+            about = False
             choice = ""
             input("> ")
         else:
@@ -395,7 +401,7 @@ while run:
                 print("Não foi possível carregar o arquivo de salvamento!")
                 input("> ")
         elif choice == "3":
-            rules = True
+            about = True
         elif choice == "4":
             quit()
 
