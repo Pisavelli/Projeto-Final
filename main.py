@@ -11,8 +11,8 @@ buy = False
 speak = False
 boss = False
 
-HP = 50
-HPMAX = 50
+HP = 100
+HPMAX = 100
 ATK = 3
 potion = 1
 elixir = 0
