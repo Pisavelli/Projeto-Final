@@ -1,0 +1,6 @@
+@echo off
+cls
+echo Starting the game...
+echo Please wait while the game loads...
+python main.py
+pause
